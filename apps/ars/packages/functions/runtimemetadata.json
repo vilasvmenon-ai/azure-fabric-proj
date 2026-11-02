@@ -1,0 +1,465 @@
+{
+  "schemaVersion": "2.0",
+  "functions": [
+    {
+      "functionName": "whoAmI",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "BaseRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "bootstrapAppAdmin",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "BaseRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "claimSuperUser",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "BaseRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "submitAddress",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "SubmitAddressRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.AzureAI | AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "AzureAI",
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "retryProcessing",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "RequestIdRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.AzureAI | AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "AzureAI",
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "getRequestStatus",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "RequestIdRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "listRecords",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "ListRecordsRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "getRecord",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "RequestIdRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "submitReview",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "SubmitReviewRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "searchAudit",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "AuditSearchRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "exportAudit",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "AuditSearchRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "verifyAuditChain",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "BaseRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "listMembers",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "BaseRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "grantMembership",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "GrantMembershipRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "revokeMembership",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "RevokeMembershipRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "seedSampleData",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "BaseRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "diagnostics",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "BaseRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "probeFoundry",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "BaseRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.AzureAI | AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "AzureAI",
+        "Sql"
+      ]
+    },
+    {
+      "functionName": "runEvaluationSample",
+      "delegateParameters": [
+        {
+          "name": "req",
+          "type": "EvaluationSampleRequest",
+          "optional": false,
+          "hasDefault": false,
+          "position": 0,
+          "isFabricParameter": false
+        },
+        {
+          "name": "ctx",
+          "type": "RayfinContext<UniversalAppSchema, AudienceType.AzureAI | AudienceType.Sql>",
+          "optional": false,
+          "hasDefault": false,
+          "position": 1,
+          "isFabricParameter": false
+        }
+      ],
+      "contextAudiences": [
+        "AzureAI",
+        "Sql"
+      ]
+    }
+  ]
+}

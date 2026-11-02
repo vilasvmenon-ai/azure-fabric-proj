@@ -1,0 +1,24 @@
+{
+  "$comment": "Copy to config/ionova.local.json (git-ignored). Used only by scripts/local/*.ps1 for the Rayfin Docker local stack. The local SQL container password is read from `rayfin dev --export-env` at run time and written only to the git-ignored packages/functions/local.settings.json.",
+  "schemaVersion": 1,
+  "environment": "local",
+  "org": { "code": "ionova", "tenantId": "<TENANT-ID-GUID>" },
+  "project": { "code": "ai-lab" },
+  "app": {
+    "appId": "ars",
+    "appName": "Address Structuring Lab",
+    "release": "1.0.0-local",
+    "bootstrapAdminEmails": ["<YOUR-SIGN-IN-EMAIL>"],
+    "faultInjection": "none"
+  },
+  "foundry": {
+    "projectEndpoint": "https://<FOUNDRY-RESOURCE>.services.ai.azure.com/api/projects/<FOUNDRY-PROJECT>",
+    "projectResourceId": "/subscriptions/<SUBSCRIPTION-ID>/resourceGroups/<FOUNDRY-RG>/providers/Microsoft.CognitiveServices/accounts/<FOUNDRY-RESOURCE>/projects/<FOUNDRY-PROJECT>",
+    "agentName": "address-structuring-lab",
+    "agentVersionLabel": null,
+    "apiVersion": "v1",
+    "timeoutMs": 60000,
+    "maxRetries": 1,
+    "totalBudgetMs": 150000
+  }
+}

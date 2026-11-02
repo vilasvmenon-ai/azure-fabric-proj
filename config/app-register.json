@@ -1,0 +1,100 @@
+{
+    "$comment":  "Application register (PRJ-02, AC-01). Copy to config/app-register.json and keep it under version control (it holds identifiers, not credentials). scripts/70-Update-Register.ps1 fills GENERATED values from `rayfin up status --json` and config/ionova.\u003cenv\u003e.json.",
+    "schemaVersion":  1,
+    "organization":  {
+                         "code":  "ionova",
+                         "name":  "ioNova",
+                         "tenantId":  "9b7d199a-1f25-4130-bd75-72de2f04b24f",
+                         "primaryAdmin":  "vilas@ionova.ai",
+                         "backupAdmin":  "vilas@ionova.ai"
+                     },
+    "projects":  [
+                     {
+                         "code":  "ai-lab",
+                         "owner":  "vilas@ionova.ai",
+                         "costOwner":  "vilas@ionova.ai",
+                         "environments":  [
+                                              {
+                                                  "name":  "dev",
+                                                  "fabricWorkspaceName":  "ws-ionova-ai-lab-dev",
+                                                  "fabricWorkspaceId":  "508eaf7a-049a-4cae-a46b-2ebb199b1142",
+                                                  "capacityId":  "e15ff259-0b42-458f-8422-bd793c02610e",
+                                                  "capacityRegion":  "Central India",
+                                                  "trialExpiryUtc":  "2026-12-22",
+                                                  "azureResourceGroup":  "rg-ionova-ai-lab-dev",
+                                                  "foundry":  {
+                                                                  "projectEndpoint":  "https://address-lab-resource.services.ai.azure.com/api/projects/vilasvmenon-3809",
+                                                                  "projectResourceId":  "/subscriptions/d96b222e-d84e-46ee-b6db-ecd5b86a985b/resourceGroups/rg-address-lab/providers/Microsoft.CognitiveServices/accounts/address-lab-resource/projects/vilasvmenon-3809",
+                                                                  "agentName":  "address-structuring-lab",
+                                                                  "agentVersionLabel":  "1",
+                                                                  "note":  "Existing agent reused; not created or modified by this project."
+                                                              },
+                                                  "applications":  [
+                                                                       {
+                                                                           "code":  "ars",
+                                                                           "name":  "Address Structuring Lab",
+                                                                           "purpose":  "Structure unstructured addresses with the existing Foundry agent; human review; audit.",
+                                                                           "owner":  "vilas@ionova.ai",
+                                                                           "status":  "deployed",
+                                                                           "fabricItemName":  "app-ionova-ai-lab-ars-dev",
+                                                                           "fabricItemId":  "f29a149f-0d00-4ef4-b61d-81d920786338",
+                                                                           "appUrl":  "https://hot-shrub-288d05cfbd-centralindia.webapp.fabricapps.net",
+                                                                           "backendUrl":  "https://pbipindcen3-centralindia.pbidedicated.windows.net/webapi/capacities/e15ff259-0b42-458f-8422-bd793c02610e/workloads/BaaS/BaaSService/automatic/v1/workspaces/508eaf7a-049a-4cae-a46b-2ebb199b1142/appbackends/f29a149f-0d00-4ef4-b61d-81d920786338/",
+                                                                           "sqlDatabaseItemId":  "3e4dca25-23c6-4a66-a456-83826352ba24",
+                                                                           "repository":  "\u003cREPO-URL\u003e/apps/ars",
+                                                                           "deployedVersion":  "1.0.0",
+                                                                           "deployedAtUtc":  "2026-10-26T12:33:24.6194905Z",
+                                                                           "dataClassification":  "Synthetic test data only (trial)",
+                                                                           "runtimeIdentity":  "vilas@ionova.ai (Fabric App item owner)",
+                                                                           "accessGroups":  [
+                                                                                                "sg-ionova-ai-lab-ars-user",
+                                                                                                "sg-ionova-ai-lab-ars-reviewer",
+                                                                                                "sg-ionova-ai-lab-ars-auditor"
+                                                                                            ],
+                                                                           "linkedAi":  [
+                                                                                            "foundry:address-structuring-lab"
+                                                                                        ]
+                                                                       },
+                                                                       {
+                                                                           "code":  "isob",
+                                                                           "name":  "App B - isolation test",
+                                                                           "purpose":  "Prove code, data and access separation from App A.",
+                                                                           "owner":  "vilas@ionova.ai",
+                                                                           "status":  "deployed",
+                                                                           "fabricItemName":  "app-ionova-ai-lab-isob-dev",
+                                                                           "fabricItemId":  "1193d903-97f3-46ba-8901-c0fc2a7525d4",
+                                                                           "appUrl":  "https://satin-gorge-cc665081ef-centralindia.webapp.fabricapps.net",
+                                                                           "backendUrl":  "https://pbipindcen3-centralindia.pbidedicated.windows.net/webapi/capacities/e15ff259-0b42-458f-8422-bd793c02610e/workloads/BaaS/BaaSService/automatic/v1/workspaces/508eaf7a-049a-4cae-a46b-2ebb199b1142/appbackends/1193d903-97f3-46ba-8901-c0fc2a7525d4/",
+                                                                           "repository":  "\u003cREPO-URL\u003e/apps/isolation-b",
+                                                                           "deployedVersion":  "1.0.0",
+                                                                           "deployedAtUtc":  "2026-10-26T12:33:28.4412464Z",
+                                                                           "dataClassification":  "Synthetic test notes only",
+                                                                           "accessGroups":  [
+                                                                                                "sg-ionova-ai-lab-isob-user"
+                                                                                            ],
+                                                                           "linkedAi":  [
+
+                                                                                        ]
+                                                                       }
+                                                                   ]
+                                              }
+                                          ]
+                     }
+                 ],
+    "changeLog":  [
+                      {
+                          "atUtc":  "2026-10-26T12:03:12.5191127Z",
+                          "environment":  "dev",
+                          "changedBy":  "vilas@ionova.ai",
+                          "reason":  "Initial dev deployment of App A; data export 20261026T120135Z verified",
+                          "commit":  null
+                      },
+                      {
+                          "atUtc":  "2026-10-26T12:33:28.4442383Z",
+                          "environment":  "dev",
+                          "changedBy":  "vilas@ionova.ai",
+                          "reason":  "App B (isolation test app) deployed",
+                          "commit":  null
+                      }
+                  ]
+}

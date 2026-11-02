@@ -1,0 +1,75 @@
+{
+  "$comment": "Application register (PRJ-02, AC-01). Copy to config/app-register.json and keep it under version control (it holds identifiers, not credentials). scripts/70-Update-Register.ps1 fills GENERATED values from `rayfin up status --json` and config/ionova.<env>.json.",
+  "schemaVersion": 1,
+  "organization": {
+    "code": "ionova",
+    "name": "ioNova",
+    "tenantId": "<TENANT-ID-GUID>",
+    "primaryAdmin": "<UPN>",
+    "backupAdmin": "<UPN>"
+  },
+  "projects": [
+    {
+      "code": "ai-lab",
+      "owner": "<UPN>",
+      "costOwner": "<UPN>",
+      "environments": [
+        {
+          "name": "dev",
+          "fabricWorkspaceName": "ws-ionova-ai-lab-dev",
+          "fabricWorkspaceId": "<WORKSPACE-ID-GUID>",
+          "capacityId": "<CAPACITY-ID-GUID>",
+          "capacityRegion": "<REGION>",
+          "trialExpiryUtc": "<YYYY-MM-DD>",
+          "azureResourceGroup": "rg-ionova-ai-lab-dev",
+          "foundry": {
+            "projectEndpoint": "<FOUNDRY-PROJECT-ENDPOINT>",
+            "projectResourceId": "<FOUNDRY-PROJECT-RESOURCE-ID>",
+            "agentName": "address-structuring-lab",
+            "agentVersionLabel": null,
+            "note": "Existing agent reused; not created or modified by this project."
+          },
+          "applications": [
+            {
+              "code": "ars",
+              "name": "Address Structuring Lab",
+              "purpose": "Structure unstructured addresses with the existing Foundry agent; human review; audit.",
+              "owner": "<UPN>",
+              "status": "GENERATED",
+              "fabricItemName": "app-ionova-ai-lab-ars-dev",
+              "fabricItemId": "GENERATED",
+              "appUrl": "GENERATED",
+              "backendUrl": "GENERATED",
+              "sqlDatabaseItemId": "GENERATED",
+              "repository": "<REPO-URL>/apps/ars",
+              "deployedVersion": "GENERATED",
+              "deployedAtUtc": "GENERATED",
+              "dataClassification": "Synthetic test data only (trial)",
+              "runtimeIdentity": "<ITEM-OWNER-UPN> (Fabric App item owner)",
+              "accessGroups": ["sg-ionova-ai-lab-ars-user", "sg-ionova-ai-lab-ars-reviewer", "sg-ionova-ai-lab-ars-auditor"],
+              "linkedAi": ["foundry:address-structuring-lab"]
+            },
+            {
+              "code": "isob",
+              "name": "App B - isolation test",
+              "purpose": "Prove code, data and access separation from App A.",
+              "owner": "<UPN>",
+              "status": "GENERATED",
+              "fabricItemName": "app-ionova-ai-lab-isob-dev",
+              "fabricItemId": "GENERATED",
+              "appUrl": "GENERATED",
+              "backendUrl": "GENERATED",
+              "repository": "<REPO-URL>/apps/isolation-b",
+              "deployedVersion": "GENERATED",
+              "deployedAtUtc": "GENERATED",
+              "dataClassification": "Synthetic test notes only",
+              "accessGroups": ["sg-ionova-ai-lab-isob-user"],
+              "linkedAi": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "changeLog": []
+}

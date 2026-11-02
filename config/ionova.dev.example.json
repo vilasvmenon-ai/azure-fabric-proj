@@ -1,0 +1,96 @@
+{
+  "$comment": "Copy to config/ionova.dev.json (git-ignored) and replace every <...> value. No credentials belong in this file. Values marked GENERATED are filled by scripts after deployment.",
+  "schemaVersion": 1,
+  "environment": "dev",
+  "org": {
+    "code": "ionova",
+    "name": "ioNova",
+    "tenantId": "<FABRIC-TENANT-ID-GUID (ioNova)>",
+    "primaryAdmin": "<PRIMARY-ADMIN-UPN>",
+    "backupAdmin": "<BACKUP-ADMIN-UPN>"
+  },
+  "project": {
+    "code": "ai-lab",
+    "owner": "<PROJECT-OWNER-UPN>",
+    "costOwner": "<COST-OWNER-UPN>",
+    "purpose": "Pilot of the ioNova Fabric + Foundry application platform"
+  },
+  "fabric": {
+    "portalUrl": "https://app.fabric.microsoft.com",
+    "workspaceName": "ws-ionova-ai-lab-dev",
+    "workspaceId": "<WORKSPACE-ID-GUID>",
+    "capacityId": "<CAPACITY-ID-GUID>",
+    "capacityRegion": "<CAPACITY-REGION, e.g. Central India>",
+    "capacitySku": "<F4 or F64 (trial)>",
+    "trialExpiryUtc": "<YYYY-MM-DD>",
+    "tenantHomeRegion": "<HOME-REGION>"
+  },
+  "azure": {
+    "$comment": "Optional Azure resources in the Fabric tenant (none are required by this release).",
+    "subscriptionId": null,
+    "resourceGroup": "rg-ionova-ai-lab-dev"
+  },
+  "foundry": {
+    "$comment": "The existing Foundry project. It may live in a DIFFERENT Entra tenant from Fabric (org.tenantId). auth=servicePrincipal (default, D-03a) uses a service principal in the Foundry tenant created by scripts/41; auth=rayfinAppIdentity only works when Foundry is in the Fabric tenant.",
+    "tenantId": "<FOUNDRY-TENANT-ID-GUID>",
+    "subscriptionId": "<FOUNDRY-SUBSCRIPTION-ID-GUID>",
+    "projectEndpoint": "https://<FOUNDRY-RESOURCE>.services.ai.azure.com/api/projects/<FOUNDRY-PROJECT>",
+    "projectResourceId": "/subscriptions/<SUBSCRIPTION-ID>/resourceGroups/<FOUNDRY-RG>/providers/Microsoft.CognitiveServices/accounts/<FOUNDRY-RESOURCE>/projects/<FOUNDRY-PROJECT>",
+    "agentName": "address-structuring-lab",
+    "agentVersionLabel": null,
+    "apiVersion": "v1",
+    "rbacRole": "Foundry Agent Consumer",
+    "timeoutMs": 60000,
+    "maxRetries": 1,
+    "totalBudgetMs": 150000,
+    "auth": "servicePrincipal",
+    "servicePrincipal": {
+      "appDisplayName": "sp-ionova-ai-lab-ars-foundry-dev",
+      "clientId": "GENERATED: set by scripts/41-Setup-FoundryServicePrincipal.ps1",
+      "objectId": "GENERATED",
+      "secretExpiryUtc": "GENERATED",
+      "secretMonths": 6
+    }
+  },
+  "runtimeIdentity": {
+    "$comment": "Fabric App item OWNER (the account that deploys). Used for the app's own SQL database. Used for Foundry only when foundry.auth = rayfinAppIdentity.",
+    "ownerUpn": "<ITEM-OWNER-UPN>",
+    "ownerObjectId": "<ITEM-OWNER-ENTRA-OBJECT-ID>"
+  },
+  "groups": {
+    "projectAuthors": "sg-ionova-ai-lab-authors",
+    "arsUsers": "sg-ionova-ai-lab-ars-user",
+    "arsReviewers": "sg-ionova-ai-lab-ars-reviewer",
+    "arsAuditors": "sg-ionova-ai-lab-ars-auditor",
+    "isobUsers": "sg-ionova-ai-lab-isob-user"
+  },
+  "apps": {
+    "ars": {
+      "path": "apps/ars",
+      "itemName": "app-ionova-ai-lab-ars-dev",
+      "appId": "ars",
+      "appName": "Address Structuring Lab",
+      "release": "1.0.0",
+      "dataClassification": "Synthetic test data only (trial)",
+      "bootstrapAdminEmails": ["<FIRST-APP-ADMIN-UPN>"],
+      "superUserEmails": [],
+      "faultInjection": "none",
+      "hasRuntimeConfig": true,
+      "sql": {
+        "server": "GENERATED: set by scripts/31-Resolve-AppDatabase.ps1",
+        "database": "GENERATED: set by scripts/31-Resolve-AppDatabase.ps1",
+        "sqlDatabaseItemId": "GENERATED",
+        "schema": "dbo"
+      }
+    },
+    "isob": {
+      "path": "apps/isolation-b",
+      "itemName": "app-ionova-ai-lab-isob-dev",
+      "appId": "isob",
+      "appName": "App B - isolation test",
+      "release": "1.0.0",
+      "dataClassification": "Synthetic test notes only",
+      "hasRuntimeConfig": false
+    }
+  }
+}

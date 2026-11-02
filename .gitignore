@@ -1,0 +1,21 @@
+# Environment configuration with real identifiers (examples are committed)
+config/*.json
+!config/*.example.json
+!config/app-register.json
+
+# Data exports and deployment evidence (may contain test data)
+exports/
+evidence/
+
+# Node / build output
+node_modules/
+dist/
+*.tsbuildinfo
+.vite/
+coverage/
+
+# Local secrets
+*.local
+local.settings.json
+.env
+.env.*

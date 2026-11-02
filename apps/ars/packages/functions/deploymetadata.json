@@ -1,0 +1,888 @@
+{
+  "runtime": "TypeScript",
+  "functionsMetadata": [
+    {
+      "name": "whoAmI",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "whoAmI"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<WhoAmIResponse>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "BaseRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'whoAmI',\n  async (req: BaseRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<WhoAmIResponse>> =>\n    run('whoAmI', req, ctx, null, (svc) => svc.whoAmI()),\n  []\n)"
+    },
+    {
+      "name": "bootstrapAppAdmin",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "bootstrapAppAdmin"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<MembershipView>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "BaseRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'bootstrapAppAdmin',\n  async (req: BaseRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<MembershipView>> =>\n    run('bootstrapAppAdmin', req, ctx, null, (svc) => svc.bootstrapAppAdmin()),\n  []\n)"
+    },
+    {
+      "name": "claimSuperUser",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "claimSuperUser"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<MembershipView>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "BaseRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'claimSuperUser',\n  async (req: BaseRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<MembershipView>> =>\n    run('claimSuperUser', req, ctx, null, (svc) => svc.claimSuperUser()),\n  []\n)"
+    },
+    {
+      "name": "submitAddress",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "submitAddress"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_AzureAI",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "AzureAI"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<SubmitAddressResponse>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "SubmitAddressRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql | AudienceType.AzureAI>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'submitAddress',\n  async (\n    req: SubmitAddressRequest,\n    ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql | AudienceType.AzureAI>\n  ): Promise<ApiResult<SubmitAddressResponse>> =>\n    run('submitAddress', req, ctx, () => ctx.Tokens.AzureAI, (svc) => svc.submitAddress(req)),\n  []\n)"
+    },
+    {
+      "name": "retryProcessing",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "retryProcessing"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_AzureAI",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "AzureAI"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<RecordDetail>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "RequestIdRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql | AudienceType.AzureAI>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'retryProcessing',\n  async (\n    req: RequestIdRequest,\n    ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql | AudienceType.AzureAI>\n  ): Promise<ApiResult<RecordDetail>> =>\n    run('retryProcessing', req, ctx, () => ctx.Tokens.AzureAI, (svc) => svc.retryProcessing(req)),\n  []\n)"
+    },
+    {
+      "name": "getRequestStatus",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "getRequestStatus"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<RecordSummary>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "RequestIdRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'getRequestStatus',\n  async (req: RequestIdRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<RecordSummary>> =>\n    run('getRequestStatus', req, ctx, null, (svc) => svc.getRequestStatus(req)),\n  []\n)"
+    },
+    {
+      "name": "listRecords",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "listRecords"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<Page<RecordSummary>>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "ListRecordsRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'listRecords',\n  async (req: ListRecordsRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<Page<RecordSummary>>> =>\n    run('listRecords', req, ctx, null, (svc) => svc.listRecords(req)),\n  []\n)"
+    },
+    {
+      "name": "getRecord",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "getRecord"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<RecordDetail>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "RequestIdRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'getRecord',\n  async (req: RequestIdRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<RecordDetail>> =>\n    run('getRecord', req, ctx, null, (svc) => svc.getRecord(req)),\n  []\n)"
+    },
+    {
+      "name": "submitReview",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "submitReview"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<RecordDetail>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "SubmitReviewRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'submitReview',\n  async (req: SubmitReviewRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<RecordDetail>> =>\n    run('submitReview', req, ctx, null, (svc) => svc.submitReview(req)),\n  []\n)"
+    },
+    {
+      "name": "searchAudit",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "searchAudit"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<Page<AuditEventView>>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "AuditSearchRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'searchAudit',\n  async (req: AuditSearchRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<Page<AuditEventView>>> =>\n    run('searchAudit', req, ctx, null, (svc) => svc.searchAudit(req)),\n  []\n)"
+    },
+    {
+      "name": "exportAudit",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "exportAudit"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<AuditExportResponse>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "AuditSearchRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'exportAudit',\n  async (req: AuditSearchRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<AuditExportResponse>> =>\n    run('exportAudit', req, ctx, null, (svc) => svc.exportAudit(req)),\n  []\n)"
+    },
+    {
+      "name": "verifyAuditChain",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "verifyAuditChain"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<AuditChainResponse>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "BaseRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'verifyAuditChain',\n  async (req: BaseRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<AuditChainResponse>> =>\n    run('verifyAuditChain', req, ctx, null, (svc) => svc.verifyAuditChain()),\n  []\n)"
+    },
+    {
+      "name": "listMembers",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "listMembers"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<MembershipView[]>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "BaseRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'listMembers',\n  async (req: BaseRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<MembershipView[]>> =>\n    run('listMembers', req, ctx, null, (svc) => svc.listMembers()),\n  []\n)"
+    },
+    {
+      "name": "grantMembership",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "grantMembership"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<MembershipView>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "GrantMembershipRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'grantMembership',\n  async (req: GrantMembershipRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<MembershipView>> =>\n    run('grantMembership', req, ctx, null, (svc) => svc.grantMembership(req)),\n  []\n)"
+    },
+    {
+      "name": "revokeMembership",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "revokeMembership"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<MembershipView>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "RevokeMembershipRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'revokeMembership',\n  async (req: RevokeMembershipRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<MembershipView>> =>\n    run('revokeMembership', req, ctx, null, (svc) => svc.revokeMembership(req)),\n  []\n)"
+    },
+    {
+      "name": "seedSampleData",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "seedSampleData"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<SeedResponse>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "BaseRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'seedSampleData',\n  async (req: BaseRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<SeedResponse>> =>\n    run('seedSampleData', req, ctx, null, (svc) => svc.seedSampleData()),\n  []\n)"
+    },
+    {
+      "name": "diagnostics",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "diagnostics"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<DiagnosticsResponse>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "BaseRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'diagnostics',\n  async (req: BaseRequest, ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql>): Promise<ApiResult<DiagnosticsResponse>> =>\n    run('diagnostics', req, ctx, null, (svc) => svc.diagnostics()),\n  []\n)"
+    },
+    {
+      "name": "probeFoundry",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "probeFoundry"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_AzureAI",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "AzureAI"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<FoundryProbeResponse>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "BaseRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql | AudienceType.AzureAI>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'probeFoundry',\n  async (\n    req: BaseRequest,\n    ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql | AudienceType.AzureAI>\n  ): Promise<ApiResult<FoundryProbeResponse>> =>\n    run('probeFoundry', req, ctx, () => ctx.Tokens.AzureAI, (svc) => svc.probeFoundry()),\n  []\n)"
+    },
+    {
+      "name": "runEvaluationSample",
+      "scriptFile": "src\\function_app.ts",
+      "bindings": [
+        {
+          "name": "req",
+          "type": "httpTrigger",
+          "direction": "in",
+          "authLevel": "anonymous",
+          "methods": [
+            "post"
+          ],
+          "route": "runEvaluationSample"
+        },
+        {
+          "name": "$return",
+          "type": "http",
+          "direction": "out"
+        },
+        {
+          "name": "__generic_AzureAI",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "AzureAI"
+        },
+        {
+          "name": "__generic_Sql",
+          "direction": "in",
+          "type": "FabricItem",
+          "alias": "",
+          "audienceType": "Sql"
+        }
+      ],
+      "fabricProperties": {
+        "fabricMetadataSchemaVersion": "1.0",
+        "fabricFunctionReturnType": "Promise<ApiResult<EvaluationSampleResponse>>",
+        "fabricFunctionParameters": [
+          {
+            "name": "req",
+            "dataType": "EvaluationSampleRequest",
+            "hasDefaultValue": false
+          },
+          {
+            "name": "ctx",
+            "dataType": "RayfinContext<UniversalAppSchema, AudienceType.Sql | AudienceType.AzureAI>",
+            "hasDefaultValue": false
+          }
+        ]
+      },
+      "functionCode": "udf.func(\n  'runEvaluationSample',\n  async (\n    req: EvaluationSampleRequest,\n    ctx: RayfinContext<UniversalAppSchema, AudienceType.Sql | AudienceType.AzureAI>\n  ): Promise<ApiResult<EvaluationSampleResponse>> =>\n    run('runEvaluationSample', req, ctx, () => ctx.Tokens.AzureAI, (svc) => svc.runEvaluationSample(req)),\n  []\n)"
+    }
+  ]
+}
