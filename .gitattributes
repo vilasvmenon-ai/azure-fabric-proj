@@ -1,0 +1,2 @@
+# The exported agent instructions are hashed (foundry/agent/agent.json); keep them byte-identical on every OS.
+foundry/agent/*.txt text eol=lf

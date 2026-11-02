@@ -4,7 +4,7 @@ import { clearFoundryTokenCache, FOUNDRY_SCOPE, getFoundryTokenWithServicePrinci
 import { parseRuntimeConfig } from '../src/config.js';
 import { testConfig } from './helpers.js';
 
-const sp = { tenantId: '26919914-5baa-4bb7-b4c8-c39efb7fa94e', clientId: '11111111-2222-4333-8444-555555555555' };
+const sp = { tenantId: 'aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee', clientId: '11111111-2222-4333-8444-555555555555' };
 const ok = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 
 describe('cross-tenant Foundry token (D-03a)', () => {

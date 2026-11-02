@@ -59,7 +59,7 @@ foreach ($appName in $cfg.apps.PSObject.Properties.Name) {
 $sqlDbs = @($items.value | Where-Object { $_.type -eq 'SQLDatabase' })
 Write-Host "  SQL databases in workspace: $($sqlDbs.Count) (trial allows up to 3)."
 
-Write-Step 'Manual confirmations still required (record them in docs\READINESS.md)'
+Write-Step 'Manual confirmations still required (record them in docs\deployments\<org>-<env>\READINESS.md)'
 Write-Host '  R-01 trial expiry/size   R-02 Fabric Apps tenant setting   R-03 Functions availability   R-04 runtime identity'
 
 $file = New-EvidenceFile "readiness-$Environment.json"

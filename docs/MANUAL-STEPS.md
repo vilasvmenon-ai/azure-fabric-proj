@@ -19,7 +19,7 @@ Microsoft portal labels change. If a label differs, follow the linked Microsoft 
 ### M-01 Install local tools
 - **Purpose:** Get the tools the scripts use.
 - **Action:**
-  - Node.js 20 or later (tested with **24.22.1**): `winget install OpenJS.NodeJS.LTS`
+  - Node.js 24 (tested with **24.22.1**; the repository `.nvmrc` says 24): `winget install OpenJS.NodeJS.LTS`
   - Git: `winget install Git.Git`
   - Azure CLI (tested with **2.91.0**): `winget install Microsoft.AzureCLI`
   - Optional, for local function debugging only: `npm install --global azure-functions-core-tools@4`
@@ -30,7 +30,7 @@ Microsoft portal labels change. If a label differs, follow the linked Microsoft 
 - **Two tenants (this deployment):** **Fabric** runs in the ioNova tenant and needs a **work or school account**; a personal Microsoft account such as gmail or outlook gets HTTP 401 from Fabric. The **existing Foundry** project stays in its own tenant. Record both tenant IDs: `org.tenantId` for Fabric, `foundry.tenantId` for Foundry.
 - **Purpose:** Pin the tenant, its administrators and the subscription.
 - **Action:** In the Microsoft Entra admin center, go to **Overview** and copy the **Tenant ID**. Name a primary and a backup administrator. In the Azure portal, go to **Subscriptions** and copy the subscription ID that pays for Foundry usage.
-- **Expected:** All values recorded in `config/ionova.dev.json` (M-09) and [READINESS.md](READINESS.md) R-00.
+- **Expected:** All values recorded in `config/ionova.dev.json` (M-09) and your deployment's copy of [READINESS.md](READINESS.md) R-00.
 
 ### M-03 Find the tenant home region [Portal]
 - **Action:** Fabric portal, then **?** (Help), then **About Fabric**, then **Your data is stored in**.
@@ -80,7 +80,7 @@ Microsoft portal labels change. If a label differs, follow the linked Microsoft 
 - **Verify:** `scripts\00-Test-Prerequisites.ps1` reports *config is complete*.
 
 ### M-10 Choose the item owner (runtime identity) (AI-03, G-04)
-- **Purpose:** Deployed Functions call Foundry **as the Fabric App item owner**. The account that first runs `rayfin up` becomes the owner, and only the owner can publish Functions.
+- **Purpose:** The account that first runs `rayfin up` becomes the Fabric App item owner. Only the owner can publish Functions, and the functions use the owner's identity for the app's own SQL database. Foundry is reached with the service principal from M-15 (`foundry.auth = servicePrincipal`); only in a same-tenant setup with `rayfinAppIdentity` do functions call Foundry as the owner.
 - **Action:** Use one named, supported account (not a personal or temporary one) for M-13 to M-17. Record it in `runtimeIdentity`.
 - **Verify:** After M-13, the Fabric portal shows the App item **Owner** as that account.
 
@@ -117,6 +117,7 @@ cd apps\ars; npm ci; cd ..\isolation-b; npm ci; cd ..\..
   - *Popup blocked at sign-in*: allow popups for the app URL.
 
 ### M-14 Confirm the existing Foundry agent (AI-01, SET-04) [Portal, read-only]
+- **New Foundry project with no agent yet?** Create a model deployment named as in `foundry.modelDeployment` (default `gpt-5-mini`, see `foundry/agent/agent.json`), then run `.\scripts\42-Create-FoundryAgent.ps1 -WhatIf` and `.\scripts\42-Create-FoundryAgent.ps1`. The script stops without changes when an agent with that name already exists. Never run it to "fix" an existing agent.
 - **Action:**
   1. In the Foundry portal (new experience), open the existing project, then **Agents**, and select the address agent. Record its **name** and **version**, and confirm its model deployment and instructions. **Change nothing.**
   2. Copy the **project endpoint** from the project overview.
@@ -148,7 +149,9 @@ az login --tenant <foundry.tenantId>
   - `Insufficient privileges`: you need Application Administrator in the Foundry tenant.
   - `AuthorizationFailed`: you need Owner or User Access Administrator on the project.
   - *No remote endpoint*: deploy App A first.
-  - The role can take a few minutes to propagate.
+  - The role can take a few minutes to propagate. In the ioNova deployment the first successful probe came about 12 minutes after the assignment.
+  - *Probe returns 403 with **Foundry Project Runtime User***: that role doesn't include `Microsoft.CognitiveServices/accounts/AIServices/endpoints/interact/action`. Use **Foundry Agent Consumer**.
+  - *Role not found or assignment lands in the wrong subscription*: run `az account set --subscription <foundry.subscriptionId>` first. Script 41 switches the Azure CLI default back to the Fabric tenant when it finishes.
 - **Same-tenant setups only:** set `foundry.auth` to `rayfinAppIdentity` and use `scripts\40-Grant-FoundryAccess.ps1` instead.
 
 ### M-16 Connect App A to its database and store the runtime configuration
@@ -180,7 +183,8 @@ az login --tenant <foundry.tenantId>
 
 ### M-19 Grant business roles in the app (ACC-02, ACC-03)
 - **Action:** In App A, go to **Administration**, then **App membership**, then grant roles **by sign-in email**: `app_user`, `reviewer`, `auditor`, `audit_exporter` and, for a second administrator, `app_admin`. Record the approval reason.
-- **Note:** You can't grant roles to yourself. App administrators get no record or audit access unless they also hold those roles.
+- **Note:** You can't grant roles to yourself. App administrators get no record or audit access unless they also hold those roles. A user can hold several roles at once.
+- **Super user (dev/uat only, D-57):** an account listed in `apps.ars.superUserEmails` (stored by script 32) can open **Administration** and select **Claim super user**. That adds `super_user`, which combines the `app_user` and `app_admin` permissions, so one person can check the system alone. The server rejects `superUserEmails` in prod.
 
 ### M-20 Share each Fabric App item with its users only (ACC-01, PRJ-03) [Portal]
 - **Action:** In the workspace, open the item's **…** menu, then **Manage permissions** (or **Share**). Add the group or user with **Run and interact** (Read and execute) only.
@@ -193,7 +197,7 @@ az login --tenant <foundry.tenantId>
 ```powershell
 .\scripts\50-Verify-Deployment.ps1 -Environment dev
 ```
-Then run every runtime test in [VERIFICATION.md](VERIFICATION.md) with real test users, and record the results in [STATUS.md](STATUS.md).
+Then run every runtime test in [VERIFICATION.md](VERIFICATION.md) with real test users, and record the results in your deployment's `STATUS.md` (copy [deployments/_template](deployments/_template/STATUS.md) to `docs/deployments/<org>-<env>/`).
 
 ### M-22 Update the application register (AC-01)
 ```powershell
@@ -212,6 +216,13 @@ Then run every runtime test in [VERIFICATION.md](VERIFICATION.md) with real test
 .\scripts\60-Export-AppData.ps1 -Environment dev
 ```
 Then decide on an authorized paid capacity (reassign the workspace to an F SKU before expiry), or an orderly shutdown (see [SUPPORT.md](SUPPORT.md), section *Shutdown*).
+
+To move the data into a **new** App A item (new workspace or capacity): deploy it (M-13, M-16), don't bootstrap it, then restore:
+```powershell
+.\scripts\61-Import-AppData.ps1 -ExportPath .\exports\dev\<timestamp>                              # dry run
+.\scripts\61-Import-AppData.ps1 -ExportPath .\exports\dev\<timestamp> -ResetUserBindings -Apply
+```
+The script only writes into empty tables, in one transaction. Read its help for the identity limits: users' own-request lists don't carry over to a new item.
 
 ---
 

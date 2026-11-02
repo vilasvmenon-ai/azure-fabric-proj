@@ -1,5 +1,5 @@
 {
-  "$comment": "Application register (PRJ-02, AC-01). Copy to config/app-register.json and keep it under version control (it holds identifiers, not credentials). scripts/70-Update-Register.ps1 fills GENERATED values from `rayfin up status --json` and config/ionova.<env>.json.",
+  "$comment": "Application register (PRJ-02, AC-01). scripts/70-Update-Register.ps1 copies it to docs/deployments/<org>-<env>/app-register.json; keep that copy under version control (it holds identifiers, not credentials). scripts/70-Update-Register.ps1 fills GENERATED values from `rayfin up status --json` and config/ionova.<env>.json.",
   "schemaVersion": 1,
   "organization": {
     "code": "ionova",

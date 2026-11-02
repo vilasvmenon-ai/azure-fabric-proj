@@ -7,7 +7,9 @@ This repository implements the **ioNova Microsoft Fabric and Foundry Application
 
 Everything Fabric-side uses the **Rayfin CLI/SDK 1.36.2**. Foundry is called only from Rayfin Functions. Fabric (the ioNova tenant) and the existing Foundry project are in **different tenants**, so the function authenticates to Foundry with a dedicated service principal in the Foundry tenant. Its secret is held only as a Rayfin function secret (D-03a). The existing agent, its instructions and its model deployment are never created or modified.
 
-> **Status:** source generated, built and tested locally. **Not yet deployed or verified at runtime** (no tenant access was used). See [docs/STATUS.md](docs/STATUS.md).
+> **Status:** deployed and runtime-verified in the ioNova dev environment (Fabric trial, Central India, with a cross-tenant Foundry project). See [docs/deployments/ionova-dev/STATUS.md](docs/deployments/ionova-dev/STATUS.md). Multi-user access tests are still open.
+>
+> **New team or new environment?** Start with [docs/SETUP-NEW-ENVIRONMENT.md](docs/SETUP-NEW-ENVIRONMENT.md). For code changes, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ## Repository layout
 
@@ -22,9 +24,12 @@ ionova-ai-lab/
 │   │   ├── packages/frontend/        React + Vite app (Fabric SSO, routing, screens, tests)
 │   │   └── scripts/functions-typegen.mjs   Rayfin CLI type generator (offline)
 │   └── isolation-b/                  App B (Rayfin project)
-├── config/                           Configuration templates and application register (no credentials)
-├── scripts/                          PowerShell setup, deployment, verification, export, rollback
-└── docs/                             Decisions, readiness, manual steps, verification, support, status
+├── foundry/agent/                    Exported definition of the existing agent (used only to create it in a NEW Foundry project)
+├── config/                           Configuration templates (no credentials; real config/ionova.<env>.json is git-ignored)
+├── scripts/                          PowerShell setup, deployment, verification, schema snapshot, export/restore, rollback
+└── docs/                             Setup and developer guides, decisions, manual steps, verification, support
+    ├── schema/                       Reference DDL of the databases Rayfin created (script 52)
+    └── deployments/<org>-<env>/      Per-environment register, status and readiness records
 ```
 
 ## Exact execution order
@@ -40,17 +45,17 @@ ionova-ai-lab/
 | 7 | Sign in | `.\scripts\10-Connect-Tenant.ps1` | Item owner |
 | 8 | Readiness (read-only) | `.\scripts\20-Test-FabricReadiness.ps1` | Item owner |
 | 9 | Deploy App A | `.\scripts\30-Deploy-App.ps1 -App ars -DryRun`, then without `-DryRun` | Item owner |
-| 10 | Confirm the existing agent (read-only) | [M-14](docs/MANUAL-STEPS.md#m-14-confirm-the-existing-foundry-agent-ai-01-set-04-portal-read-only) | Item owner |
+| 10 | Confirm the existing agent (read-only), or create it in a **new** Foundry project with `42-Create-FoundryAgent.ps1` | [M-14](docs/MANUAL-STEPS.md#m-14-confirm-the-existing-foundry-agent-ai-01-set-04-portal-read-only) | Item owner |
 | 11 | Cross-tenant Foundry access: service principal plus Rayfin secret (D-03a) | `.\scripts\41-Setup-FoundryServicePrincipal.ps1 -WhatIf`, then without `-WhatIf` | Foundry tenant admin, with Rayfin signed in to Fabric |
 | 12 | Database coordinates and runtime config | `31-Resolve-AppDatabase.ps1`, `32-Set-RuntimeConfig.ps1`, `51-Test-AppSchema.ps1` | Item owner |
 | 13 | Deploy App B | `.\scripts\30-Deploy-App.ps1 -App isob` | Item owner |
 | 14 | Bootstrap the admin, seed, probe Foundry | [M-18](docs/MANUAL-STEPS.md#m-18-first-sign-in-bootstrap-the-administrator-seed-sample-data) | Bootstrap admin |
 | 15 | In-app roles, then item sharing | [M-19](docs/MANUAL-STEPS.md#m-19-grant-business-roles-in-the-app-acc-02-acc-03), [M-20](docs/MANUAL-STEPS.md#m-20-share-each-fabric-app-item-with-its-users-only-acc-01-prj-03-portal) | App admin / project admin |
 | 16 | Verify | `.\scripts\50-Verify-Deployment.ps1`, then every runtime test in [docs/VERIFICATION.md](docs/VERIFICATION.md) | Testers |
-| 17 | Register | `.\scripts\70-Update-Register.ps1 -ChangedBy … -Reason …` | Project admin |
+| 17 | Schema snapshot and register | `.\scripts\52-Export-SchemaSnapshot.ps1 -App ars`, `.\scripts\70-Update-Register.ps1 -ChangedBy … -Reason …` (writes `docs/deployments/<org>-<env>/`) | Project admin |
 | 18 | Monitoring, cost, expiry | [M-23](docs/MANUAL-STEPS.md#m-23-monitoring-alerts-and-cost-log-02-portal), [M-24](docs/MANUAL-STEPS.md#m-24-before-the-trial-expires-data-04) | Support owner |
 
-Ongoing operations, rollback, export and shutdown: [docs/SUPPORT.md](docs/SUPPORT.md).
+Ongoing operations, rollback (script 80), export (60), restore into a new item (61) and shutdown: [docs/SUPPORT.md](docs/SUPPORT.md).
 
 ## Build and test locally (no Azure needed)
 
@@ -60,7 +65,7 @@ npm ci
 npm run typecheck; npm run lint; npm test; npm run build
 ```
 
-Repeat in `apps\isolation-b`. After changing any `udf.func()` signature, run `npm run functions:typegen`, then `npm run validate:functions`.
+Repeat in `apps\isolation-b`. After changing any `udf.func()` signature, run `npm run functions:typegen`, then `npm run validate:functions`. More in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ## Security notes
 

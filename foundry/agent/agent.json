@@ -1,0 +1,19 @@
+{
+    "$comment":  "Exported read-only on 2026-11-02 from the existing ioNova dev agent. Used by scripts/42-Create-FoundryAgent.ps1 to create the SAME agent in a NEW Foundry project. Never used to modify an existing agent.",
+    "name":  "address-structuring-lab",
+    "sourceVersion":  "1",
+    "kind":  "prompt",
+    "modelDeployment":  "gpt-5-mini",
+    "model":  {
+                  "name":  "gpt-5-mini",
+                  "version":  "2025-08-07",
+                  "sku":  "GlobalStandard",
+                  "capacityUsedInIonovaDev":  250
+              },
+    "tools":  [
+
+              ],
+    "instructionsFile":  "address-structuring-lab.instructions.txt",
+    "instructionsSha256":  "9751331676e43d28c3ffa4c8489a79926278f0c23417a81fdb19a89c98b2b3e5",
+    "responseContract":  "apps/ars/packages/functions/src/contract.ts (PROMPT_CONTRACT_VERSION ars-reference-v3:fields-evidence-notes)"
+}

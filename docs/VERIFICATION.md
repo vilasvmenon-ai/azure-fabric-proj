@@ -49,7 +49,7 @@ Use these test accounts:
 | **Admin** | App A | `app_admin` |
 | **Unassigned** | none, and not a workspace member | none |
 
-Record the result, date, tester and correlation IDs for each test in [STATUS.md](STATUS.md).
+Record the result, date, tester and correlation IDs for each test in your deployment's `STATUS.md` (`docs/deployments/<org>-<env>/`; the ioNova dev record is [deployments/ionova-dev/STATUS.md](deployments/ionova-dev/STATUS.md)).
 
 **Direct API technique (V-23, V-24):**
 

@@ -38,6 +38,7 @@
     "projectResourceId": "/subscriptions/<SUBSCRIPTION-ID>/resourceGroups/<FOUNDRY-RG>/providers/Microsoft.CognitiveServices/accounts/<FOUNDRY-RESOURCE>/projects/<FOUNDRY-PROJECT>",
     "agentName": "address-structuring-lab",
     "agentVersionLabel": null,
+    "modelDeployment": "gpt-5-mini",
     "apiVersion": "v1",
     "rbacRole": "Foundry Agent Consumer",
     "timeoutMs": 60000,

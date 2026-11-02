@@ -12,7 +12,6 @@ services:
     allowedRedirectUris:
       - http://localhost:5173
       - http://127.0.0.1:5173
-      - https://satin-gorge-cc665081ef-centralindia.webapp.fabricapps.net
   data:
     enabled: true
     path: packages/data

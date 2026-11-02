@@ -31,7 +31,7 @@ export function testConfig(overrides: Partial<RuntimeConfig> = {}): RuntimeConfi
       maxRetries: 1,
       totalBudgetMs: 150_000,
       auth: 'servicePrincipal',
-      servicePrincipal: { tenantId: '26919914-5baa-4bb7-b4c8-c39efb7fa94e', clientId: '11111111-2222-4333-8444-555555555555' },
+      servicePrincipal: { tenantId: 'aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee', clientId: '11111111-2222-4333-8444-555555555555' },
     },
     sql: { server: 'example.database.fabric.microsoft.com', port: 1433, database: 'db', schema: 'dbo', auth: 'entraToken', user: null, trustServerCertificate: false },
     bootstrapAdminEmails: ['admin@ionova.test'],

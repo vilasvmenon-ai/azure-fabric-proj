@@ -10,11 +10,12 @@
 
 .EXAMPLE
   .\scripts\31-Resolve-AppDatabase.ps1 -App ars
+  .\scripts\31-Resolve-AppDatabase.ps1 -App isob     # optional: only needed for 52-Export-SchemaSnapshot -App isob
   .\scripts\31-Resolve-AppDatabase.ps1 -App ars -SqlDatabaseItemId 00000000-0000-0000-0000-000000000000
 #>
 [CmdletBinding()]
 param(
-  [ValidateSet('ars')][string]$App = 'ars',
+  [ValidateSet('ars', 'isob')][string]$App = 'ars',
   [string]$Environment = 'dev',
   [string]$SqlDatabaseItemId
 )
@@ -46,6 +47,7 @@ if ($pick.Count -ne 1) {
 Write-Step "Reading coordinates of $($pick[0].displayName)"
 $db = Invoke-FabricGet "workspaces/$ws/sqlDatabases/$($pick[0].id)" $tenant
 if (-not $db.properties.serverFqdn -or -not $db.properties.databaseName) { throw 'The SQL database did not return serverFqdn/databaseName.' }
+if (-not $appCfg.PSObject.Properties['sql']) { $appCfg | Add-Member -NotePropertyName sql -NotePropertyValue ([pscustomobject]@{ server = ''; database = ''; sqlDatabaseItemId = ''; schema = 'dbo' }) }
 $appCfg.sql.server = $db.properties.serverFqdn
 $appCfg.sql.database = $db.properties.databaseName
 $appCfg.sql.sqlDatabaseItemId = $pick[0].id

@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-  Step 70 - Update config\app-register.json with actual resource IDs and URLs (PRJ-02, AC-01).
+  Step 70 - Update docs\deployments\<org>-<env>\app-register.json with actual resource IDs and URLs (PRJ-02, AC-01).
 
 .DESCRIPTION
-  Creates config\app-register.json from the example on first run (filling org/project/environment values
+  Creates docs\deployments\<org>-<env>\app-register.json from config\app-register.example.json on first run (filling org/project/environment values
   from config\ionova.<env>.json), then for each deployed app reads `rayfin up status --json` and records
   item id, app URL, backend URL, SQL database item id, deployed version and time. Appends a changeLog entry.
   The register contains identifiers only (no credentials) and is meant to be version-controlled.
@@ -22,7 +22,10 @@ Import-Module (Join-Path $PSScriptRoot 'IonovaDeploy.psm1') -Force
 Update-SessionPath
 $cfg = Read-IonovaConfig $Environment
 $root = Get-RepoRoot
-$regPath = Join-Path $root 'config\app-register.json'
+# One folder per deployment (org + environment), so each team's records stay apart from the reusable templates.
+$deployDir = Join-Path $root "docs\deployments\$($cfg.org.code)-$Environment"
+if (-not (Test-Path $deployDir)) { New-Item -ItemType Directory -Path $deployDir | Out-Null }
+$regPath = Join-Path $deployDir 'app-register.json'
 if (-not (Test-Path $regPath)) { Copy-Item (Join-Path $root 'config\app-register.example.json') $regPath }
 $reg = Read-JsonFile $regPath
 

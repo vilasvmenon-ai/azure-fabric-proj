@@ -57,9 +57,9 @@ describe('caller identity', () => {
       sub: '/tenants/t1/workspaces/w1/appbackends/a1/users/0f8fad5b-d9cb-469f-a165-70867728950e',
       idtyp: 'fmi',
       exp: 2e9,
-      xms_attr: { 'f29a149f-0d00-4ef4-b61d-81d920786338': { rfn_email: 'Vilas@ionova.ai' } },
+      xms_attr: { '00000000-1111-4222-8333-444444444444': { rfn_email: 'Tester@Example.com' } },
     };
-    expect(callerFromClaims(managed, 1e9)).toEqual({ sub: managed.sub, email: 'vilas@ionova.ai' });
+    expect(callerFromClaims(managed, 1e9)).toEqual({ sub: managed.sub, email: 'tester@example.com' });
   });
 
   it('rejects expired tokens, missing sub or email', () => {

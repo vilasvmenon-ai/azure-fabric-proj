@@ -46,7 +46,7 @@ For frontend-only changes you can run `npx rayfin up staticapp deploy` in the ap
 .\scripts\80-Rollback-App.ps1 -App ars -GitRef <previous-tag>
 ```
 
-This redeploys code and schema from the previous commit to the same item. Data isn't rolled back. If you must restore data, use the latest export (`exports/…`). There is no automated import; restoring is a manual, approved operation.
+This redeploys code and schema from the previous commit to the same item. Data isn't rolled back. If you must restore data, use the latest export (`exports/…`). `scripts/61-Import-AppData.ps1` restores an export into a **new, empty** App A database only (dry run by default, one transaction, `-ResetUserBindings` for a new item). It never merges into or overwrites a live database. Restoring is an approved operation: record it in the register.
 
 ## 3a. Rotate the Foundry service principal secret (every 6 months, D-03a)
 
