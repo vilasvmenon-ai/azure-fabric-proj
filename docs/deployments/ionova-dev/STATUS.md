@@ -3,7 +3,7 @@
 Deployment record for **ioNova / dev** (Fabric in the ioNova tenant, Foundry in a separate tenant, D-03a). Other teams: start from [../_template/STATUS.md](../_template/STATUS.md).
 
 Last updated: **2 November 2026**. Workstation: Windows 10, Node.js 24.22.1, npm 11.19.1, Azure CLI 2.91.0, Rayfin CLI 1.36.2, Git 2.56.
-Repository: `github.com/vilasvmenon-ai/azure-fabric-proj` (private), tags `v1.0.0-dev.1` (first deployed state) and `v1.0.0-dev.2` (repository made reusable for new environments).
+Repository: `github.com/vilasvmenon-ai/azure-fabric-proj` (private), tags `v1.0.0-dev.1` and `v1.0.0-dev.2` (both on the first deployed state, commit `6c5677c`) and `v1.0.0-dev.3` (repository made reusable for new environments).
 
 ## Status summary
 
@@ -37,7 +37,7 @@ Legend: ✅ done, with evidence below. ⚠️ partial. ❌ not done.
 | `super_user` role (D-57) | **Deployed and claimed** (audit #24, granted_by `deployment-config`) | `evidence/20261026T131445Z-status-ars-dev.json` |
 | **End-to-end flow (V-06, AC-03)** | **Runtime-verified**: India sample and a custom US address, both COMPLETED, VALID, agent `address-structuring-lab@1`, gpt-5-mini, about 10–11 s; survive a reload; audit #25–#28 hold no address text | SQL checks, 26 Oct |
 | Data separation A/B (PRJ-03, data part) | **Verified**: separate databases on the same Fabric SQL server | SQL checks, 26 Oct |
-| Git repository and tags | **Pushed** `v1.0.0-dev.1`; `v1.0.0-dev.2` see the repository | GitHub |
+| Git repository and tags | **Pushed** `main` at `6c5677c` with `v1.0.0-dev.1` and `v1.0.0-dev.2`; `v1.0.0-dev.3` after the clean-rebuild test | GitHub |
 
 ## Still to do
 

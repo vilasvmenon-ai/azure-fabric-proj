@@ -20,7 +20,7 @@ npm run build:fabric  # the production build that rayfin up deploys
 ```
 
 Run the gates in that order, one at a time: typecheck and build share TypeScript outputs. Repeat in `apps\isolation-b` (no functions there).
-Expected counts at v1.0.0-dev.2: functions 78 tests, ars frontend 44, isob 42.
+Expected counts at v1.0.0-dev.3: functions 78 tests, ars frontend 44, isob 42.
 
 ## Code map (App A)
 
@@ -52,5 +52,5 @@ Expected counts at v1.0.0-dev.2: functions 78 tests, ars frontend 44, isob 42.
 
 ## Git
 
-- `main` holds releases. Tag each deployed state (`v<release>-<env>.<n>`, for example `v1.0.0-dev.2`). Rollback (script 80) redeploys a tag.
+- `main` holds releases. Tag each deployed state (`v<release>-<env>.<n>`, for example `v1.0.0-dev.3`). Never move a tag that has been pushed; create the next number instead. Rollback (script 80) redeploys a tag.
 - Never commit `config/ionova.<env>.json`, `evidence/`, `exports/`, `.env*`, `local.settings.json` or `rayfin/.deployments.json`; `.gitignore` covers them. Do commit `docs/deployments/<org>-<env>/`.
