@@ -4,7 +4,6 @@ import type {
   EvaluationSampleRequest,
   GrantMembershipRequest,
   ListRecordsRequest,
-  RecordSummary,
   RequestIdRequest,
   RevokeMembershipRequest,
   SampleAddressView,
@@ -101,45 +100,6 @@ export const api = {
   runEvaluationSample: (req: WithoutCorrelation<EvaluationSampleRequest>) =>
     call((c, correlationId) => c.functions.runEvaluationSample.invoke({ req: { ...req, correlationId } }, { timeoutMs: AI_TIMEOUT_MS }), AI_TIMEOUT_MS + 5_000),
 };
-
-/**
- * Generated Rayfin data API (APP-04): the signed-in user's own requests,
- * filtered server-side by the AddressRequest owner policy. No client filter
- * is relied on for protection (DATA-02).
- */
-export async function listMyRecordsViaDataApi(after?: string | null): Promise<{ items: RecordSummary[]; hasNextPage: boolean; endCursor: string | null }> {
-  const client = await getRayfinClient();
-  let query = client.data.AddressRequest.select([
-    'id',
-    'creator_email',
-    'original_address',
-    'processing_status',
-    'review_status',
-    'decision',
-    'version',
-    'created_at',
-    'updated_at',
-  ])
-    .orderBy({ created_at: 'desc' })
-    .first(25);
-  if (after) query = query.after(after);
-  const page = await query.executePaginated();
-  return {
-    items: page.items.map((r) => ({
-      id: r.id,
-      creatorEmail: r.creator_email,
-      addressExcerpt: r.original_address.length > 80 ? `${r.original_address.slice(0, 77)}...` : r.original_address,
-      processingStatus: r.processing_status,
-      reviewStatus: r.review_status,
-      decision: r.decision,
-      version: r.version,
-      createdAt: new Date(r.created_at).toISOString(),
-      updatedAt: new Date(r.updated_at).toISOString(),
-    })),
-    hasNextPage: page.hasNextPage,
-    endCursor: page.endCursor ?? null,
-  };
-}
 
 /** Synthetic samples through the generated data API (readable by signed-in users). */
 export async function listSamplesViaDataApi(): Promise<SampleAddressView[]> {

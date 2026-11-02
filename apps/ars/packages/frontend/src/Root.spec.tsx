@@ -8,7 +8,6 @@ const whoAmI = vi.fn<() => Promise<ApiResult<WhoAmIResponse>>>();
 vi.mock('@/lib/api', () => ({
   api: { whoAmI: () => whoAmI(), bootstrapAppAdmin: vi.fn() },
   listSamplesViaDataApi: vi.fn(async () => []),
-  listMyRecordsViaDataApi: vi.fn(async () => ({ items: [], hasNextPage: false, endCursor: null })),
   newCorrelationId: () => '00000000-0000-4000-8000-000000000000',
 }));
 

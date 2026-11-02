@@ -4,15 +4,17 @@ import { Link } from 'react-router-dom';
 
 import { Button, Card, ErrorPanel, Loading, StatusBadge } from '@/components/ui';
 import { formatDate } from '@/lib/format';
-import { api, listMyRecordsViaDataApi } from '@/lib/api';
+import { api } from '@/lib/api';
 import { useSession } from '@/lib/session-context';
 
 const PROCESSING: ProcessingStatus[] = ['PROCESSING', 'COMPLETED', 'FAILED_AI', 'FAILED_VALIDATION', 'FAILED_STORAGE', 'FAILED_AUDIT'];
 const REVIEW: ReviewStatus[] = ['PENDING', 'APPROVED', 'REJECTED', 'NEEDS_CHANGES'];
 
 /**
- * Records list (APP-06). "My records" reads through the generated Rayfin data
- * API (owner-only policy); "All records" calls the reviewer-only function.
+ * Records list (APP-06). Both scopes call the listRecords function: "My records"
+ * filters on the caller's sub server-side, "All records" needs address.read.all.
+ * (The generated data API's owner policy returned no rows on Fabric-hosted
+ * sessions even when creator_sub matched the session sub; D-55 revised.)
  */
 export function RecordsPage() {
   const { can } = useSession();
@@ -22,52 +24,28 @@ export function RecordsPage() {
   const [processingStatus, setProcessingStatus] = useState<ProcessingStatus | ''>('');
   const [reviewStatus, setReviewStatus] = useState<ReviewStatus | ''>('');
   const [page, setPage] = useState(1);
-  const [cursors, setCursors] = useState<(string | null)[]>([null]);
   const [items, setItems] = useState<RecordSummary[] | null>(null);
   const [hasNext, setHasNext] = useState(false);
   const [error, setError] = useState<{ error: ApiError; correlationId?: string } | null>(null);
 
   type Loaded =
-    | { ok: true; items: RecordSummary[]; hasNext: boolean; endCursor: string | null }
+    | { ok: true; items: RecordSummary[]; hasNext: boolean }
     | { ok: false; error: ApiError; correlationId?: string };
 
   // Fetch without touching state; `apply` sets state after the call resolves.
   const fetchPage = useCallback(async (): Promise<Loaded> => {
-    if (scope === 'mine') {
-      try {
-        const r = await listMyRecordsViaDataApi(cursors[page - 1]);
-        const items = r.items.filter(
-          (x) => (!processingStatus || x.processingStatus === processingStatus) && (!reviewStatus || x.reviewStatus === reviewStatus)
-        );
-        return { ok: true, items, hasNext: r.hasNextPage, endCursor: r.endCursor };
-      } catch {
-        return { ok: false, error: { code: 'INTERNAL', message: 'Your records could not be loaded from the data service.' } };
-      }
-    }
     const res = await api.listRecords({ scope, page, pageSize: 25, processingStatus: processingStatus || undefined, reviewStatus: reviewStatus || undefined });
     return res.ok
-      ? { ok: true, items: res.data.items, hasNext: res.data.hasNextPage, endCursor: null }
+      ? { ok: true, items: res.data.items, hasNext: res.data.hasNextPage }
       : { ok: false, error: res.error, correlationId: res.correlationId };
-    // cursors are read for the current page only; they are written by `apply`.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scope, page, processingStatus, reviewStatus]);
 
-  const apply = useCallback(
-    (r: Loaded) => {
-      if (!r.ok) return setError({ error: r.error, correlationId: r.correlationId });
-      setError(null);
-      setItems(r.items);
-      setHasNext(r.hasNext);
-      if (scope === 'mine') {
-        setCursors((c) => {
-          const next = [...c];
-          next[page] = r.endCursor;
-          return next;
-        });
-      }
-    },
-    [scope, page]
-  );
+  const apply = useCallback((r: Loaded) => {
+    if (!r.ok) return setError({ error: r.error, correlationId: r.correlationId });
+    setError(null);
+    setItems(r.items);
+    setHasNext(r.hasNext);
+  }, []);
 
   const load = useCallback(() => fetchPage().then(apply), [fetchPage, apply]);
 
@@ -82,7 +60,6 @@ export function RecordsPage() {
   const reset = () => {
     setItems(null);
     setPage(1);
-    setCursors([null]);
   };
 
   return (
@@ -119,7 +96,6 @@ export function RecordsPage() {
             ))}
           </select>
         </label>
-        {scope === 'mine' && <span className="self-center text-xs text-muted-foreground">Filters apply to the current page.</span>}
       </div>
       {error && <ErrorPanel error={error.error} correlationId={error.correlationId} onRetry={() => void load()} />}
       {!error && !items && <Loading />}
