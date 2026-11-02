@@ -1,12 +1,106 @@
 # ioNova AI Lab: App User Guide
 
-2 November 2026 · Vilas Menon
+Address Structuring Lab (App A) and isolation test app (App B) on Microsoft Fabric, using the existing Microsoft Foundry address-structuring agent.
 
-> Exported from the Claude Docs page [ioNova AI Lab: App User Guide](https://claude.ai/artifact/KQW4NBsxLggbemrWvBj5Qs). Screenshots were taken in the dev environment on 2 Nov 2026.
+| | |
+| --- | --- |
+| Version | 1.0 |
+| Date | 2 November 2026 |
+| Prepared by | Vilas Menon |
+| Environment | Development (Microsoft Fabric trial, Central India) |
+| Classification | Internal |
 
-This guide walks through both ioNova Fabric apps screen by screen: App A structures postal addresses with the existing Foundry agent, and App B proves that apps stay separate.
+> Also available as [Word](ioNova-AI-Lab-App-User-Guide.docx) and [PDF](ioNova-AI-Lab-App-User-Guide.pdf). Keep all three in step when you change the guide.
 
-## The two apps at a glance
+## Version history
+
+### Document control
+
+| | |
+| --- | --- |
+| Document | ioNova AI Lab: App User Guide |
+| Current version | 1.0 |
+| Status | Released for internal use |
+| Owner | Vilas Menon |
+| Applies to | App A (Address Structuring Lab) and App B (isolation test app), ioNova dev environment, repository main branch as of 2 November 2026 |
+| Source repository | github.com/vilasvmenon-ai/azure-fabric-proj (docs/user-guide) |
+
+### Revision history
+
+| Version | Date | Author | Changes |
+| --- | --- | --- | --- |
+| 1.0 | 2 November 2026 | Vilas Menon | First release. Step-by-step guide to both apps with screenshots from the dev environment. |
+
+### Review and approval
+
+| Name | Role | Signature | Date |
+| --- | --- | --- | --- |
+| Vilas Menon | Author | | 2 November 2026 |
+| | Reviewer | | |
+| | Approver | | |
+
+## Index
+
+- [About this document](#about-this-document)
+- [1. The two apps at a glance](#1-the-two-apps-at-a-glance)
+- [2. Open and sign in](#2-open-and-sign-in)
+- [3. Roles](#3-roles)
+- [4. First-time setup (app admin)](#4-first-time-setup-app-admin)
+- [5. Structure an address](#5-structure-an-address)
+- [6. Records and record details](#6-records-and-record-details)
+- [7. Review a result (reviewer)](#7-review-a-result-reviewer)
+- [8. Audit trail (auditor)](#8-audit-trail-auditor)
+- [9. Administration (app admin)](#9-administration-app-admin)
+- [10. App B, the isolation test app](#10-app-b-the-isolation-test-app)
+
+## About this document
+
+### Purpose
+
+This guide walks through both ioNova Fabric apps screen by screen, so that anyone who is new to them can sign in, structure an address, review results, check the audit trail and manage access. **App A**, the Address Structuring Lab, structures postal addresses with the existing Microsoft Foundry agent. **App B** is a small test app that proves each app stays separate.
+
+### Audience
+
+- **App users** who submit addresses and check their own records.
+- **Reviewers** who approve or correct the agent's results.
+- **Auditors** who read and verify the audit trail.
+- **App administrators** who set up a deployment and grant roles.
+- **Stakeholders** who want to understand what the apps do.
+
+### Scope
+
+The guide covers using the two apps in the ioNova **development** environment. It doesn't cover installing or deploying the apps, which is described in the setup and deployment guides in the repository (see Related documents).
+
+### How this guide is organised
+
+| Chapters | Read if you want to |
+| --- | --- |
+| 1 to 3 | Understand the two apps, sign in, and see which role gives which screens. |
+| 4 | Set up a new deployment for the first time (app admin). |
+| 5 and 6 | Structure an address and find your saved records (app user). |
+| 7 | Review and correct results (reviewer). |
+| 8 | Read and verify the audit trail (auditor). |
+| 9 | Grant and revoke roles (app admin). |
+| 10 | Use App B, the isolation test app. |
+
+### Conventions
+
+- **Bold** text is a button, tab, field or label exactly as it appears in the app.
+- *Italic* text is a message the app shows.
+- Numbered lists are steps to follow in order.
+- Screenshots were taken in the dev environment on 2 November 2026 as vilas@ionova.ai, signed in as app admin and super user. All addresses shown are synthetic test data.
+
+### Related documents
+
+| Document | Where |
+| --- | --- |
+| ioNova Microsoft Fabric and Foundry React Apps PRD v1.2 | [docs/prd/](../prd/) |
+| Setting up a new environment | [docs/SETUP-NEW-ENVIRONMENT.md](../SETUP-NEW-ENVIRONMENT.md) |
+| Deploying with Claude Code | [docs/CLAUDE-CODE-DEPLOY.md](../CLAUDE-CODE-DEPLOY.md) |
+| Support, rollback and restore | [docs/SUPPORT.md](../SUPPORT.md) |
+| Repository | [github.com/vilasvmenon-ai/azure-fabric-proj](https://github.com/vilasvmenon-ai/azure-fabric-proj) |
+
+## 1. The two apps at a glance
 
 App A turns a free-text postal address into six checked fields using the existing Foundry agent; App B is a small second app that proves apps stay apart.
 
@@ -14,7 +108,7 @@ App A turns a free-text postal address into six checked fields using the existin
 
 Only App A's server functions talk to the agent: they send the address text and save the answer in App A's own database. App B has its own item, database and access list, and nothing links it to App A.
 
-## Open and sign in
+## 2. Open and sign in
 
 Both apps are private web pages hosted by Microsoft Fabric; you sign in with your ioNova work account.
 
@@ -32,7 +126,7 @@ Both apps are private web pages hosted by Microsoft Fabric; you sign in with you
 
 A personal Microsoft account (gmail, outlook) cannot open the apps. You also need the app item shared with you in Fabric (**Run and interact**) and, for App A, a role granted inside the app.
 
-## Roles
+## 3. Roles
 
 What you see in App A depends on the roles an app admin granted you; one person can hold several roles, and nobody can change their own roles.
 
@@ -47,7 +141,7 @@ What you see in App A depends on the roles an app admin granted you; one person 
 
 The screenshots in this guide were taken as vilas@ionova.ai with **app admin** and **super user**, so the Review and Audit screens are described but not shown. An app admin sees no address data or audit entries unless they also hold those roles.
 
-## First-time setup (app admin)
+## 4. First-time setup (app admin)
 
 A new deployment needs one admin and a few readiness checks before anyone submits addresses; this was done in dev on 26 Oct 2026.
 
@@ -64,7 +158,7 @@ A new deployment needs one admin and a few readiness checks before anyone submit
 
 If the probe shows *auth (HTTP 403)*, the Foundry role is missing or still propagating (up to about 15 minutes).
 
-## Structure an address
+## 5. Structure an address
 
 You paste one free-text address; the existing Foundry agent splits it into six fields, and the app saves both your input and the result (about 10–15 seconds).
 
@@ -89,7 +183,7 @@ You paste one free-text address; the existing Foundry agent splits it into six f
 
 ![Agent notes, correlation ID and the Open record link](images/06-result-notes.jpg)
 
-## Records and record details
+## 6. Records and record details
 
 Every submission becomes a record that keeps your original input, the agent's untouched output and the current (reviewed) fields side by side.
 
@@ -105,7 +199,7 @@ Every submission becomes a record that keeps your original input, the agent's un
 
 ![Current fields beside the immutable model output, and the review history](images/09-record-fields.jpg)
 
-## Review a result (reviewer)
+## 7. Review a result (reviewer)
 
 A reviewer confirms or corrects the agent's fields; the agent's original output is never changed, only the current fields and the review history.
 
@@ -118,7 +212,7 @@ A reviewer confirms or corrects the agent's fields; the agent's original output 
 
 No screenshot: the sample account does not hold the reviewer role.
 
-## Audit trail (auditor)
+## 8. Audit trail (auditor)
 
 Every business action is written to a tamper-evident audit trail: each event carries a hash of the one before it, so any change or gap shows up when you verify it. Audit events never contain address text.
 
@@ -130,7 +224,7 @@ Every business action is written to a tamper-evident audit trail: each event car
 
 No screenshot: the sample account does not hold an audit role. In dev the chain was verified intact on 26 Oct 2026 (28 of 28 events).
 
-## Administration (app admin)
+## 9. Administration (app admin)
 
 App admins decide who may use App A and in which role; every grant and revoke is audited with a reason.
 
@@ -144,7 +238,7 @@ App admins decide who may use App A and in which role; every grant and revoke is
 
 **Super user (dev and uat only).** An account listed in the deployment's super-user setting can select **Claim super user** on this tab once. It adds the super\_user role (app\_user plus app\_admin) so one person can test end to end. Production refuses this setting.
 
-## App B, the isolation test app
+## 10. App B, the isolation test app
 
 App B is a deliberately tiny second app with its own Fabric item, database and access list; it exists to prove that one app cannot see another app's data or users.
 

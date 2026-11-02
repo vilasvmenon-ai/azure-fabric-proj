@@ -11,7 +11,7 @@ Everything Fabric-side uses the **Rayfin CLI/SDK 1.36.2**. Foundry is called onl
 >
 > **New team or new environment?** Start with [docs/SETUP-NEW-ENVIRONMENT.md](docs/SETUP-NEW-ENVIRONMENT.md). For code changes, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 >
-> **How to use the apps (with screenshots):** [docs/user-guide/USER-GUIDE.md](docs/user-guide/USER-GUIDE.md).
+> **How to use the apps (with screenshots):** [docs/user-guide/USER-GUIDE.md](docs/user-guide/USER-GUIDE.md), also as [Word](docs/user-guide/ioNova-AI-Lab-App-User-Guide.docx) and [PDF](docs/user-guide/ioNova-AI-Lab-App-User-Guide.pdf).
 >
 > **Requirements:** [docs/prd/ioNova_Microsoft_Fabric_Foundry_React_Apps_PRD_v1.2.docx](docs/prd/ioNova_Microsoft_Fabric_Foundry_React_Apps_PRD_v1.2.docx). **Deploy both apps with one command or with Claude Code:** `.\scripts\90-Deploy-All.ps1`, see [docs/CLAUDE-CODE-DEPLOY.md](docs/CLAUDE-CODE-DEPLOY.md).
 
