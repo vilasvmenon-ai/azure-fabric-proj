@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(.\\scripts\\90-Deploy-All.ps1 *)",
+      "PowerShell(.\\scripts\\00-Test-Prerequisites.ps1 *)",
+      "PowerShell(.\\scripts\\20-Test-FabricReadiness.ps1 *)",
+      "PowerShell(.\\scripts\\30-Deploy-App.ps1 *)",
+      "PowerShell(.\\scripts\\31-Resolve-AppDatabase.ps1 *)",
+      "PowerShell(.\\scripts\\32-Set-RuntimeConfig.ps1 *)",
+      "PowerShell(.\\scripts\\50-Verify-Deployment.ps1 *)",
+      "PowerShell(.\\scripts\\51-Test-AppSchema.ps1 *)",
+      "PowerShell(.\\scripts\\52-Export-SchemaSnapshot.ps1 *)",
+      "PowerShell(.\\scripts\\70-Update-Register.ps1 *)",
+      "PowerShell(cd *)",
+      "PowerShell(Set-Location *)",
+      "PowerShell(Push-Location *)",
+      "PowerShell(Pop-Location)",
+      "PowerShell(npm ci *)",
+      "PowerShell(npm run typecheck)",
+      "PowerShell(npm run lint)",
+      "PowerShell(npm test)",
+      "PowerShell(npm run build:fabric)",
+      "PowerShell(npx rayfin login status *)",
+      "PowerShell(npx rayfin up status *)",
+      "PowerShell(git status *)",
+      "PowerShell(git log *)",
+      "PowerShell(git diff *)",
+      "PowerShell(git add *)",
+      "PowerShell(git commit *)"
+    ],
+    "deny": [
+      "PowerShell(.\\scripts\\41-Setup-FoundryServicePrincipal.ps1 *)",
+      "PowerShell(.\\scripts\\42-Create-FoundryAgent.ps1 *)",
+      "PowerShell(.\\scripts\\61-Import-AppData.ps1 *)",
+      "PowerShell(.\\scripts\\80-Rollback-App.ps1 *)",
+      "PowerShell(git push *)",
+      "PowerShell(git tag *)",
+      "PowerShell(git reset *)",
+      "PowerShell(npx rayfin up --force *)",
+      "PowerShell(npx rayfin * --force *)",
+      "PowerShell(npx rayfin secret *)",
+      "PowerShell(az login *)",
+      "PowerShell(az ad *)",
+      "PowerShell(az role *)",
+      "PowerShell(Remove-Item *)",
+      "Edit(foundry/**)"
+    ]
+  }
+}

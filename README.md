@@ -10,6 +10,8 @@ Everything Fabric-side uses the **Rayfin CLI/SDK 1.36.2**. Foundry is called onl
 > **Status:** deployed and runtime-verified in the ioNova dev environment (Fabric trial, Central India, with a cross-tenant Foundry project). See [docs/deployments/ionova-dev/STATUS.md](docs/deployments/ionova-dev/STATUS.md). Multi-user access tests are still open.
 >
 > **New team or new environment?** Start with [docs/SETUP-NEW-ENVIRONMENT.md](docs/SETUP-NEW-ENVIRONMENT.md). For code changes, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+>
+> **Requirements:** [docs/prd/ioNova_Microsoft_Fabric_Foundry_React_Apps_PRD_v1.2.docx](docs/prd/ioNova_Microsoft_Fabric_Foundry_React_Apps_PRD_v1.2.docx). **Deploy both apps with one command or with Claude Code:** `.\scripts\90-Deploy-All.ps1`, see [docs/CLAUDE-CODE-DEPLOY.md](docs/CLAUDE-CODE-DEPLOY.md).
 
 ## Repository layout
 
